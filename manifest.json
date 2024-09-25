@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Quiz Game",
+  "version": "1.0",
+  "description": "A simple Chrome Quiz-Game",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "quiz-icon.jpg",
+      "48": "quiz-icon.jpg",
+      "128": "quiz-icon.jpg"
+    }
+  },
+  "permissions": ["activeTab"]
+}
