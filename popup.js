@@ -25,6 +25,7 @@ const startGameBtn = document.getElementById("startGame");
 const quizContainer = document.getElementById("quizContainer");
 const questionEl = document.getElementById("question");
 const optionButtons = Array.from(document.getElementsByClassName("optionBtn"));
+const resultMessage = document.getElementById("resultMessage"); // Added for displaying score
 
 // Start the game
 startGameBtn.addEventListener("click", startGame);
@@ -46,31 +47,36 @@ function loadQuestion() {
     button.innerText = currentQuiz.options[index];
     button.onclick = () => checkAnswer(index);
   });
+
+  resultMessage.innerText = ""; // Clear the result message when loading a new question
 }
 
 function checkAnswer(selectedOption) {
   const correctOption = quizData[currentQuestion].correct;
 
   if (selectedOption === correctOption) {
-    alert("Correct!");
+    resultMessage.innerText = "Correct!"; // Show correct message
     score++;
   } else {
-    alert("Wrong answer!");
+    resultMessage.innerText = "Wrong answer!"; // Show wrong message
   }
 
   // Move to the next question or finish the quiz
   currentQuestion++;
   if (currentQuestion < quizData.length) {
-    loadQuestion(); // Load the next question
+    setTimeout(loadQuestion, 1000); // Load the next question after 1 second
   } else {
-    finishQuiz(); // End the quiz
+    setTimeout(finishQuiz, 1000); // End the quiz after 1 second
   }
 }
 
 function finishQuiz() {
-  alert(`Quiz over! Your score is ${score}/${quizData.length}.`);
-  quizContainer.style.display = "none"; // Hide the quiz container
-  startGameBtn.style.display = "block"; // Show the start button again for a new game
-  currentQuestion = 0; // Reset for the next game
-  score = 0; // Reset score
+  resultMessage.innerText = `Quiz over! Your score is ${score}/${quizData.length}.`;
+
+  setTimeout(() => {
+    quizContainer.style.display = "none"; // Hide the quiz container after 3 seconds
+    startGameBtn.style.display = "block"; // Show the start button again for a new game
+    currentQuestion = 0; // Reset for the next game
+    score = 0; // Reset score
+  }, 3000); // 3-second delay before hiding the quiz container
 }
