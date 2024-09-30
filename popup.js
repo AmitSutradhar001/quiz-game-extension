@@ -55,9 +55,11 @@ function checkAnswer(selectedOption) {
   const correctOption = quizData[currentQuestion].correct;
 
   if (selectedOption === correctOption) {
+    resultMessage.style.color = "green";
     resultMessage.innerText = "Correct!"; // Show correct message
     score++;
   } else {
+    resultMessage.style.color = "red";
     resultMessage.innerText = "Wrong answer!"; // Show wrong message
   }
 
@@ -71,6 +73,7 @@ function checkAnswer(selectedOption) {
 }
 
 function finishQuiz() {
+  resultMessage.style.color = "blue";
   resultMessage.innerText = `Quiz over! Your score is ${score}/${quizData.length}.`;
 
   setTimeout(() => {
