@@ -1,10 +1,14 @@
-console.log("Fetching all text content...");
+// content.js
+
 const observer = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
     if (mutation.type === "childList") {
-      console.log("DOM has been updated!");
       let updatedText = document.body.innerText; // Get updated text content
-      console.log(updatedText); // Log the updated text content
+
+      // Send the updated text to the background script
+      chrome.runtime.sendMessage({ content: updatedText }, (response) => {
+        console.log("Data sent to background script:", response);
+      });
     }
   });
 });

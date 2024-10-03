@@ -17,6 +17,40 @@ const quizData = [
   },
 ];
 
+async function getData(sendData) {
+  try {
+    fetch("http://localhost:3000/siteData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query: sendData }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        localStorage.setItem("sideData", JSON.stringify(data));
+      });
+  } catch (error) {
+    console.error("Error during API call:", error);
+  }
+}
+
+let setdata;
+
+// Load the data from the background.js
+document.addEventListener("DOMContentLoaded", () => {
+  // Request the content data from the background script
+
+  chrome.runtime.sendMessage({ getContent: true }, (response) => {
+    if (response && response.content) {
+      // Use the content data in your popup
+      console.log(response.content);
+      setdata = response.content;
+    }
+  });
+});
+const newData = getData(setdata);
+console.log(newData);
 let currentQuestion = 0; // Track the current question
 let score = 0; // Track user score
 
