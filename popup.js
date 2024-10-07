@@ -46,11 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // Use the content data in your popup
       console.log(response.content);
       setdata = response.content;
+      const newData = getData(setdata);
+      console.log(newData);
     }
   });
 });
-const newData = getData(setdata);
-console.log(newData);
+
 let currentQuestion = 0; // Track the current question
 let score = 0; // Track user score
 
